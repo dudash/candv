@@ -2,6 +2,8 @@
 ## What is this?
 A simple copy and paste (ctrl+c, ctrl+v) application and database that is configured for Red Hat's OpenShift.
 
+![Screenshot CandV](./.screens/2015-12-22_1025.png?raw=true)
+
 ## How can I run my own candv app?
 This app is configured to be deployed and managed via OpenShift.  Which means all you'll need to do is click a few buttons and specify some settings.
 * If you are using OpenShift Online, [follow instructions here][1]

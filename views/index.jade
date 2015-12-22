@@ -7,48 +7,49 @@ block content
 
   // FYI I put 8/4 column divides in there so it looks a little better on full website, need to check against mobile to see how it looks
   div.row
-    div.col-lg-8
-      form(type='form' action='/paste' method='post')
-        div.input-group.input-group-lg
-          input#inputPasteData(
-            name='pastedata'
-            type='text'
-            class='form-control'
-            placeholder='Paste your text here...'
-            autofocus
-          )
-          span.input-group-btn
-            button.btn.btn-default.btn-lg(type='submit') Add
-    div.col-lg-4
-      br
-
+    form(type='form' action='/paste' method='post')
+      div.input-group.input-group-lg
+        input#inputPasteData(
+          name='pastedata'
+          type='text'
+          class='form-control'
+          placeholder='Paste your text here...'
+          autofocus
+        )
+        span.input-group-btn
+          button.btn.btn-default.btn-lg(type='submit') Add
   br
   div.row
-    div.col-lg-8
-      if itemsSubSet != null && itemsSubSet.length != 0
-        - var count = Math.min(10, itemsSubSet.length)  // limit the max displayed items (the route limits this too)
-        div.panel.panel-info
-          div.panel-heading
-            h3.panel-title Last #{count} Items
-          ul.list-group
-            // loops through the last 10 items or all items if there are less than 10
-            - var iter = 0
-            while iter < count
-              if itemsSubSet[iter].raw != null
-                li.list-group-item 
-                  span.visible-inline #{itemsSubSet[iter].raw}
-                  button.btn.btn-default.btn-xs.glyphicon.glyphicon-copy.pull-right(type='button', aria-hidden='true')
-              else
-                li.list-group-item
-                  span.label.label-danger Error
-                  span.visible-inline  there is no data in this item...
-              - iter++
-      else
-        div.panel.panel-warning
-          div.panel-heading
-            h3.panel-title Your clipboard is empty
-    div.col-lg-4
+    if itemsSubSet != null && itemsSubSet.length != 0
+      - var count = Math.min(10, itemsSubSet.length)  // limit the max displayed items (the route limits this too)
+      div.panel.panel-info
+        div.panel-heading
+          h3.panel-title Last #{count} Items
+        ul.list-group
+          // loops through the last 10 items or all items if there are less than 10
+          - var iter = 0
+          while iter < count
+            if itemsSubSet[iter].raw != null && itemsSubSet[iter].raw.length > 0
+              li.list-group-item 
+                span.visible-inline #{itemsSubSet[iter].raw}
+                button.btn.btn-default.btn-xs.glyphicon.glyphicon-copy.pull-right(
+                  id='copy-button-'+i
+                  type='button',
+                  aria-hidden='true',
+                  data-clipboard-text=itemsSubSet[iter].raw
+                )
+            else
+              li.list-group-item
+                span.label.label-danger Error
+                span.visible-inline  there is no data in this item...
+            - iter++
+    else
+      div.panel.panel-warning
+        div.panel-heading
+          h3.panel-title Your clipboard is empty
       br
   
   a(href='./clipboard') All items can be seen here
-
+  
+  script(src="/javascripts/clipboard.min.js")
+  script(src="/javascripts/copybuttons.js")

@@ -26,7 +26,11 @@ router.get('/clipboard', function(req, res) {
 /* POST to add an item */
 router.post('/paste', function(req, res) {
   var db = req.db;
-  var pasteData = req.body.pastedata;  // TODO: this is empty!!!  something wrong with the form submission?
+  var pasteData = req.body.pastedata;
+  if (pasteData.length < 1) { 
+    console.log('ignoring zero length add');
+    return; 
+  } // no empty data
   var stampit = moment().valueOf();
   console.log(stampit + ' pasting: ' + pasteData);
   var collection = db.get('clipboard');

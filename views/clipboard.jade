@@ -12,11 +12,20 @@ block content
       ul.list-group
         // TODO: add the timestamp into the list (possibly make into a table)
         each item, i in clipboard
-          if item.raw == null
+          if item.raw != null && item.raw.length > 0 
+            li.list-group-item 
+              span.visible-inline #{item.raw}
+              button.btn.btn-default.btn-xs.glyphicon.glyphicon-copy.pull-right(
+                id='copy-button-'+i
+                type='button',
+                aria-hidden='true',
+                data-clipboard-text=item.raw
+              )
+          else
             li.list-group-item
               span.label.label-danger Error
               span.visible-inline  there is no data in this item...
-          else
-            li.list-group-item 
-              span.visible-inline #{item.raw}
-              button.btn.btn-default.btn-xs.glyphicon.glyphicon-copy.pull-right(type='button', aria-hidden='true')
+
+  script(src="/javascripts/clipboard.min.js")
+  script(src="/javascripts/copybuttons.js")
+
