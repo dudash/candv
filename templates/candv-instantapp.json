@@ -1,0 +1,213 @@
+// NOTE: this template is untested, use cautiously
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "candv-default",
+    "annotations": {
+      "description": "An example networked clipboard application",
+      "iconClass": "icon-nodejs"
+      "tags": "instant-app,nodejs,mongodb".
+    }  
+  },
+  "labels": {
+    "template": "candv-default"
+  },
+  "objects": [
+    // service
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "candv-default",
+        "annotations": {
+          "description": "Exposes and load balances the application pods"
+        }
+      },
+      "spec": {
+        "ports": [
+          { "name": "web", "port": 8080, "targetPort": 8080 }
+        ],
+        "selector": { "name": "candv-default" }
+      }
+    }, // end service
+    // route
+    {
+      "kind": "Route",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "candv-default"
+      },
+      "spec": {
+        "host": "${APPLICATION_DOMAIN}",
+        "to": { "kind": "Service", "name": "candv-default" }
+      }
+    }, // end route
+    // image stream
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "candv-default",
+        "annotations": {
+          "description": "Keeps track of changes in the application image"
+        }
+      }
+    }, // end image stream
+    // build config
+    {
+      "kind": "BuildConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "candv-default",
+        "annotations": {
+          "description": "Defines how to build the application"
+        }
+      },
+      "spec": {
+        "source": {
+          "type": "Git",
+          "git": { "uri": "${SOURCE_REPOSITORY_URL}", "ref": "${SOURCE_REPOSITORY_REF}" },
+          "contextDir": "${CONTEXT_DIR}"
+        },
+        "strategy": {
+          "type": "Source",
+          "sourceStrategy": {
+            // note from nodejs 0.12 here
+            "from": { "kind": "ImageStreamTag", "namespace": "openshift", "name": "nodejs:0.12" }
+          }
+        },
+        "output": {
+          "to": { "kind": "ImageStreamTag", "name": "candv-default:latest"}
+        },
+        "triggers": [
+          { "type": "ImageChange" },
+          { "type": "ConfigChange" },
+          { "type": "GitHub", "github": { "secret": "${GITHUB_WEBHOOK_SECRET}" }}
+        ]  // end triggers
+      } // end spec
+    }, // end build config
+    // deployment config
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "candv-default",
+        "annotations": {
+          "description": "Defines how to deploy the application service"
+        }
+      },
+      "spec": {
+        "strategy": {
+          "type": "Rolling"
+        },
+        "triggers": [
+          {
+            "type": "ImageChange",
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "candv-default"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "candv-default:latest"
+              }
+            }
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "name": "candv-default"
+        },
+        "template": {
+          "metadata": {
+            "name": "candv-default",
+            "labels": {
+              "name": "candv-default"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "candv-default",
+                "image": "candv-default",
+                "ports": [
+                  {
+                    "containerPort": 8080
+                  }
+                ],
+                "env": [
+                  {
+                    "name": "DATABASE_SERVICE_NAME",
+                    "value": "${DATABASE_SERVICE_NAME}"
+                  },
+                  {
+                    "name": "DATABASE_NAME",
+                    "value": "${DATABASE_NAME}"
+                  },
+                  {
+                    "name": "DATABASE_USER",
+                    "value": "${DATABASE_USER}"
+                  },
+                  {
+                    "name": "DATABASE_PASSWORD",
+                    "value": "${DATABASE_PASSWORD}"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    } // end deployment config
+  ],
+  "parameters": [
+    {
+      "name": "SOURCE_REPOSITORY_URL",
+      "description": "The URL of the repository with your application source code",
+      "value": "https://github.com/openshift/candv.git"
+    },
+    {
+      "name": "SOURCE_REPOSITORY_REF",
+      "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch"
+    },
+    {
+      "name": "CONTEXT_DIR",
+      "description": "Set this to the relative path to your project if it is not in the root of your repository"
+    },
+    {
+      "name": "APPLICATION_DOMAIN",
+      "description": "The exposed hostname that will route to the CandV service, if left blank a value will be defaulted.",
+      "value": ""
+    },
+    {
+      "name": "GITHUB_WEBHOOK_SECRET",
+      "description": "A secret string used to configure the GitHub webhook",
+      "generate": "expression",
+      "from": "[a-zA-Z0-9]{40}"
+    },
+    {
+      "name": "DATABASE_SERVICE_NAME",
+      "description": "Database service name"
+    },
+    {
+      "name": "DATABASE_NAME",
+      "description": "Database name"
+    },
+    {
+      "name": "DATABASE_USER",
+      "description": "Database user name"
+    },
+    {
+      "name": "DATABASE_PASSWORD",
+      "description": "Database user password"
+    },
+  ]
+}
+
+
+
