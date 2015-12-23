@@ -1,4 +1,3 @@
-// NOTE: this template is untested, use cautiously
 {
   "kind": "Template",
   "apiVersion": "v1",
@@ -14,7 +13,6 @@
     "template": "candv-default"
   },
   "objects": [
-    // service
     {
       "kind": "Service",
       "apiVersion": "v1",
@@ -30,8 +28,7 @@
         ],
         "selector": { "name": "candv-default" }
       }
-    }, // end service
-    // route
+    },
     {
       "kind": "Route",
       "apiVersion": "v1",
@@ -42,8 +39,7 @@
         "host": "${APPLICATION_DOMAIN}",
         "to": { "kind": "Service", "name": "candv-default" }
       }
-    }, // end route
-    // image stream
+    },
     {
       "kind": "ImageStream",
       "apiVersion": "v1",
@@ -53,8 +49,7 @@
           "description": "Keeps track of changes in the application image"
         }
       }
-    }, // end image stream
-    // build config
+    },
     {
       "kind": "BuildConfig",
       "apiVersion": "v1",
@@ -73,7 +68,6 @@
         "strategy": {
           "type": "Source",
           "sourceStrategy": {
-            // note from nodejs 0.12 here
             "from": { "kind": "ImageStreamTag", "namespace": "openshift", "name": "nodejs:0.12" }
           }
         },
@@ -84,10 +78,9 @@
           { "type": "ImageChange" },
           { "type": "ConfigChange" },
           { "type": "GitHub", "github": { "secret": "${GITHUB_WEBHOOK_SECRET}" }}
-        ]  // end triggers
-      } // end spec
-    }, // end build config
-    // deployment config
+        ]
+      }
+    },
     {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
@@ -163,7 +156,7 @@
           }
         }
       }
-    } // end deployment config
+    }
   ],
   "parameters": [
     {
