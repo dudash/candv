@@ -5,8 +5,8 @@
     "name": "candv-default",
     "annotations": {
       "description": "An example networked clipboard application",
-      "iconClass": "icon-nodejs"
-      "tags": "instant-app,nodejs,mongodb".
+      "iconClass": "icon-nodejs",
+      "tags": "instant-app,nodejs,mongodb"
     }  
   },
   "labels": {
