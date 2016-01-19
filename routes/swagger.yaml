@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   version: 0.0.1
   title: CandV
-  description: 'The CandV API (ROUTES ARE NOT ALL DEFINED) YMMV'
+  description: 'TODO The CandV API (ROUTES ARE NOT ALL DEFINED) YMMV'
 paths:
   /:
     get:
