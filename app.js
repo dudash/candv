@@ -56,6 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req,res,next) {
     req.db = db;  // make db available to express routes
+    res.locals.ua = req.get('user-agent');  // put user agent info into the response data for client side logic
     next();
 });
 
