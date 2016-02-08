@@ -26,8 +26,8 @@ The app has a been pre-configured with a template to be an Instant app for OpenS
 The webapp is mostly obvious in terms of user interaction.  Click in the box and paste your data, then press enter or click the 'Add' button to insert into the global clipboard list.  You can retrieve previously entered data from the list by clicking the copy icon located to the right of the data.  Currently delete is not supported.
 
 ## Notes on the CandV architecture
-TBD Conceptual Arch - node.js serverside, client side java script, database
-TBD Deployment Arch - openshift containers, pods, routes
+TBD Conceptual Arch - webapp node.js serverside, webapp client side java script, database
+TBD Deployment Arch - openshift containers, pods, services, routes
 
 ## Notes on the CandV REST interface
 The REST interface and corresponding [OpenAPI spec][9] is in-progress, so the write-up is TBD.
