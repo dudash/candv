@@ -4,7 +4,9 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+    link(rel="stylesheet", href="/stylesheets/bootstrap-3.3.6-dist/css/bootstrap.min.css")
     link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css", integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7", crossorigin="anonymous")
+    script(src="/javascripts/jquery-2.2.0.min.js")
   body
     nav(class='navbar navbar-inverse navbar-fixed-top')
       div.container-fluid
@@ -13,3 +15,7 @@ html
             button(type="button" class="btn btn-default btn-lg")
               span(class="glyphicon glyphicon-copy" aria-hidden="true") Home
     block content
+
+    // FOR DEBUGGING ONLY
+    //p <br/><b>USER-AGENT:</b> #{ua}
+    

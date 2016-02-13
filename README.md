@@ -14,25 +14,26 @@ This app is configured to be deployed and managed via OpenShift.  Which means al
 > You can read [about it here][3].  And [even more here][5].
 
 ### More about the deployment settings (aka template parameters)
-The app has a been pre-configured with a template to be an Instant app for OpenShift.  It will start a database, webapp, and any other dependencies with a default configuration.  There are parameters specified in the template that let you set some specific values for the following items:
-* TBD
+The app has a been pre-configured with a template to be an Instant app for OpenShift.  It will start a database, webapp, and any other dependencies with a default configuration.  There are parameters specified in the template that let you optionally tailor some specific values for your environment:
+* DB_NAME
 * TBD
 * TBD
 * TBD
 
-[Click here if you want to read about making your own instant apps][8].
+[Click here if you want to read about making your own instant apps for OpenShift][8].
 
 ## Notes on using CandV
-TBD.
+The webapp is mostly obvious in terms of user interaction.  Click in the box and paste your data, then press enter or click the 'Add' button to insert into the global clipboard list.  You can retrieve previously entered data from the list by clicking the copy icon located to the right of the data.  Currently delete is not supported.
 
 ## Notes on the CandV architecture
-TBD.
+TBD Conceptual Arch - webapp node.js serverside, webapp client side java script, database
+TBD Deployment Arch - openshift containers, pods, services, routes
 
 ## Notes on the CandV REST interface
-TBD.
+The REST interface and corresponding [OpenAPI spec][9] is in-progress, so the write-up is TBD.
 
 ## Common Problems and Debugging Help
-TBD.
+Currently there are no common problems - if you have some please submit [issues][4].
 > Here are some tips on [debugging openshift origin][6].
 
 
@@ -56,3 +57,4 @@ Under the terms of the [MIT][7].
 [6]: https://github.com/openshift/origin/blob/master/docs/debugging-openshift.md
 [7]: https://opensource.org/licenses/MIT
 [8]: https://docs.openshift.com/enterprise/3.1/install_config/install/first_steps.html#creating-instantapp-templates
+[9]: https://github.com/OAI/OpenAPI-Specification
