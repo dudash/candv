@@ -32,7 +32,7 @@ TBD Deployment Arch - openshift containers, pods, services, routes
 ## Notes on the CandV REST interface
 The REST interface and corresponding [OpenAPI spec][9] is in-progress, so the write-up is TBD.
 
-## Common Problems and Debugging Help
+## Common Problems and Debugging Help	
 Currently there are no common problems - if you have some please submit [issues][4].
 > Here are some tips on [debugging openshift origin][6].
 

@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+#candvicon { 
+    background:url(/images/icon.png) left top; 
+    width:20px; 
+    height:20px;
+    padding-left: 24px;
+    background-repeat: no-repeat;
+}
