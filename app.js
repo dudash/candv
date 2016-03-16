@@ -29,9 +29,9 @@ var dbcoll = process.env.MONGODB_DATABASE || 'cvDevel';
 //var dbcoll = process.env.MONGODB_DATABASE || 'cvTest';
 //var dbcoll = process.env.MONGODB_DATABASE || 'cvProd';
 // uncomment to use with authentication
-var url = user+':'+pass+'@'+dbip+':'+dbport+'/'+dbcoll;
+//var url = user+':'+pass+'@'+dbip+':'+dbport+'/'+dbcoll;
 // uncomment to use without authentication
-//var url = dbip+':'+dbport+'/'+dbcoll
+var url = dbip+':'+dbport+'/'+dbcoll
 
 log.info('connecting to mongodb at ' + url);
 var mongo = require('mongodb');
