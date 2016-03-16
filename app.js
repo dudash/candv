@@ -29,9 +29,9 @@ var dbcoll = process.env.MONGODB_DATABASE || 'cvDevel';
 //var dbcoll = process.env.MONGODB_DATABASE || 'cvTest';
 //var dbcoll = process.env.MONGODB_DATABASE || 'cvProd';
 // uncomment to use with authentication
-var url = user+':'+pass+'@'+dbip+':'+dbport+'/'+dbcoll;
+//var url = user+':'+pass+'@'+dbip+':'+dbport+'/'+dbcoll;
 // uncomment to use without authentication
-//var url = dbip+':'+dbport+'/'+dbcoll
+var url = dbip+':'+dbport+'/'+dbcoll
 
 log.info('connecting to mongodb at ' + url);
 var mongo = require('mongodb');
@@ -40,6 +40,7 @@ var db = monk(url);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var api = require('./api/api');
 
 var app = express();
 
@@ -62,6 +63,7 @@ app.use(function(req,res,next) {
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/api/v0', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
