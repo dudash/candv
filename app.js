@@ -28,10 +28,15 @@ var dbport = process.env.MONGODB_SERVICE_PORT || 27017;
 var dbcoll = process.env.MONGODB_DATABASE || 'cvDevel';
 //var dbcoll = process.env.MONGODB_DATABASE || 'cvTest';
 //var dbcoll = process.env.MONGODB_DATABASE || 'cvProd';
-// uncomment to use with authentication
-//var url = user+':'+pass+'@'+dbip+':'+dbport+'/'+dbcoll;
-// uncomment to use without authentication
-var url = dbip+':'+dbport+'/'+dbcoll
+var useAuth = process.env.MONGODB_USEAUTH || 'true';
+if (useAuth === 'false') {
+  log.info("mongodb with no auth");
+  var url = dbip+':'+dbport+'/'+dbcoll;
+}
+else {
+  log.info("mongodb with user/password auth");
+  var url = user+':'+pass+'@'+dbip+':'+dbport+'/'+dbcoll;
+}
 
 log.info('connecting to mongodb at ' + url);
 var mongo = require('mongodb');
