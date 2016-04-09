@@ -15,6 +15,7 @@ log.info("Staring CandV");
 
 // routing and webserver
 var express = require('express');
+var cors = require('cors');
 var path = require('path');
 var favicon = require('serve-favicon');
 var cookieParser = require('cookie-parser');
@@ -43,11 +44,8 @@ var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk(url);
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var api = require('./api/api');
-
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -66,9 +64,9 @@ app.use(function(req,res,next) {
     next();
 });
 
-app.use('/', routes);
-app.use('/users', users);
-app.use('/api/v0', api);
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
+app.use('/api', require('./api/api'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

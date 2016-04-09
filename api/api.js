@@ -7,15 +7,72 @@
 // https://opensource.org/licenses/MIT
 
 // This file defines the routes exposed as an API for the webservice
-// if you update this, please also update the corresponding /api/swagger/swagger.yaml documentation
-
+//
+// IF YOU UPDATE THIS, please also update the corresponding /api/swagger/swagger.yaml documentation
+// ^^^^^^^^^^^^^^^^^^
 var express = require('express');
 var router = express.Router();
 var moment = require('moment');
 
-/* GET users listing. */
-router.get('/boardslist/', function(req, res, next) {
-  res.send('user specific boards are not available');
+var bunyan = require('bunyan');
+var log = bunyan.createLogger({name: "api"});
+
+const API_PREFIX = "/v0";
+
+var dummyboardslist = [
+  { title: 'Global', id: 0 },
+  { title: 'Work', id: 2 },
+  { title: 'Home', id: 3 },
+  { title: 'May Workshop', id: 4 },
+];
+
+var dummyitemslist = [
+  { id: 0, raw: "copy me"},
+  { id: 1, raw: "this is a test item"},
+  { id: 2, raw: "duh 2.0"},
+  { id: 3, raw: "http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.$state"},
+  { id: 4, raw: "http://angular-ui.github.io/bootstrap/"},
+  { id: 5, raw: "https://openshift.feedhenry.com/"},
+  { id: 6, raw: "https://www.redhat.com/en/about/value-of-subscription"},
+  { id: 7, raw: "https://openapis.org/"}
+];
+
+// -- API -- 
+router.get('/', function(req, res, next) {
+  log.info('GET /');
+  res.send("The latest API is: " + API_PREFIX);
+});
+
+// -- BOARDS -- 
+router.get(API_PREFIX+'/boards/', function(req, res, next) {
+  log.info('GET /boards');
+// TODO: pull from mongoDB, for now API testing
+// TODO: middleware to auth board user has access to list
+  var data = dummyboardslist;
+  res.json(data);
+});
+router.post(API_PREFIX+'/boards/', function(req, res, next) {
+  log.info('POST /boards');
+// TODO: add a new board
+  res.send("POST create a new board is not implemented yet");
+});
+
+// -- ITEMS -- 
+router.get(API_PREFIX+'/boards/:boardId', function(req, res, next) {
+  log.info('GET /boards/' + req.params.boardId);
+  // for now redirect to items list - future might return more details board info
+  res.redirect('/api' + API_PREFIX + '/boards/' + req.params.boardId + '/items/');
+});
+router.get(API_PREFIX+'/boards/:boardId/items', function(req, res, next) {
+  log.info('GET /boards/' + req.params.boardId + '/items');
+// TODO: pull from mongoDB, for now API testing
+  var data = dummyitemslist;
+  res.json(data);
+});
+router.post(API_PREFIX+'/boards/:boardId/items/', function(req, res, next) {
+log.info('POST /boards/' + req.params.boardId + '/items');
+// TODO: add a new item to the board
+  res.send("POST create a new board is not implemented yet, item not added to board " + req.params.boardId);
 });
 
 module.exports = router;

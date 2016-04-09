@@ -11,7 +11,7 @@ consumes:
 produces:
   - application/json
 paths:
-  /boardslist:
+  /boards:
     post:
       description: 'Add a new board'
       produces:
@@ -28,7 +28,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  /boardslist/{boardId}:
+  /boards/{boardId}:
     get:
       description: 'Returns the JSON for the entire clipboard'
       produces:
@@ -53,7 +53,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
 
-  /boardslist/{boardId}/item:
+  /boards/{boardId}/items:
     post:
       description: 'Add an item into this board'
       produces:
@@ -77,7 +77,7 @@ paths:
           schema:
             $ref: '#/definitions/Error'
  
-  /boardslist/{boardId}/item/{itemId}:
+  /boards/{boardId}/items/{itemId}:
     get:
       description: 'Returns the JSON for a specific item in a board'
       produces:

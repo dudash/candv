@@ -1,3 +1,13 @@
+// Created by: Jason Dudash
+// https://github.com/dudash
+//
+// (C) 2016 Red Hat
+//
+// Released under the terms of MIT License
+// https://opensource.org/licenses/MIT
+
+// This file defines the routes exposed for the website index
+//
 var express = require('express');
 var router = express.Router();
 var moment = require('moment');
