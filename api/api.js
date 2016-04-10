@@ -58,7 +58,7 @@ router.get(API_PREFIX+'/boards/:boardId/items', function(req, res, next) {
   	var data = alldocs;
   	log.info('returning: ' + JSON.stringify(data));
   	if (data != null) { res.json(data); }
-  	else { res.json("[]"); }
+  	else { res.json(""); }
   });
 });
 
