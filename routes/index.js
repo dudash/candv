@@ -1,3 +1,13 @@
+// Created by: Jason Dudash
+// https://github.com/dudash
+//
+// (C) 2016 Red Hat
+//
+// Released under the terms of MIT License
+// https://opensource.org/licenses/MIT
+
+// This file defines the routes exposed for the website index
+//
 var express = require('express');
 var router = express.Router();
 var moment = require('moment');
@@ -14,7 +24,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
-/* GET Userlist page. */
+/* GET clipboard page. */
 router.get('/clipboard', function(req, res) {
   var db = req.db;
   var collection = db.get('clipboard');
@@ -23,7 +33,7 @@ router.get('/clipboard', function(req, res) {
   });
 });
 
-/* POST to add an item */
+/* non-api POST to add an item */
 router.post('/paste', function(req, res) {
   var db = req.db;
   var pasteData = req.body.pastedata;
