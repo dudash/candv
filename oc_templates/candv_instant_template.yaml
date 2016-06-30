@@ -4,6 +4,45 @@ metadata:
   name: candv_instant
 objects:
 - apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: candv
+    name: candv
+  spec:
+    ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: candv
+      deploymentconfig: candv
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
+- apiVersion: v1
+  kind: Route
+  metadata:
+    labels:
+      app: candv
+    name: candv
+  spec:
+    host: "${APPLICATION_DOMAIN}"
+    port:
+      targetPort: 8080-tcp
+    to:
+      kind: Service
+      name: candv
+  status: {}
+- apiVersion: v1
+  kind: ImageStream
+  metadata:
+    labels:
+      app: candv
+    name: candv
+- apiVersion: v1
   kind: BuildConfig
   metadata:
     labels:
@@ -38,58 +77,6 @@ objects:
       type: ImageChange
   status:
     lastVersion: 0
-- apiVersion: v1
-  kind: Route
-  metadata:
-    labels:
-      app: candv
-    name: candv
-  spec:
-    host: "${APPLICATION_DOMAIN}"
-    port:
-      targetPort: 8080-tcp
-    to:
-      kind: Service
-      name: candv
-  status: {}
-- apiVersion: v1
-  kind: Service
-  metadata:
-    labels:
-      app: candv
-    name: candv
-  spec:
-    ports:
-    - name: 8080-tcp
-      port: 8080
-      protocol: TCP
-      targetPort: 8080
-    selector:
-      app: candv
-      deploymentconfig: candv
-    sessionAffinity: None
-    type: ClusterIP
-  status:
-    loadBalancer: {}
-- apiVersion: v1
-  kind: Service
-  metadata:
-    labels:
-      app: candv
-      template: mongodb-ephemeral-template
-    name: mongodb
-  spec:
-    ports:
-    - name: mongo
-      port: 27017
-      protocol: TCP
-      targetPort: 27017
-    selector:
-      name: mongodb
-    sessionAffinity: None
-    type: ClusterIP
-  status:
-    loadBalancer: {}
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -149,6 +136,25 @@ objects:
           name: candv:latest
       type: ImageChange
   status: {}
+- apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: candv
+      template: mongodb-ephemeral-template
+    name: mongodb
+  spec:
+    ports:
+    - name: mongo
+      port: 27017
+      protocol: TCP
+      targetPort: 27017
+    selector:
+      name: mongodb
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
 - apiVersion: v1
   kind: DeploymentConfig
   metadata:
@@ -216,12 +222,6 @@ objects:
       type: ImageChange
     - type: ConfigChange
   status: {}
-- apiVersion: v1
-  kind: ImageStream
-  metadata:
-    labels:
-      app: candv
-    name: candv
 parameters:
   - name: APPLICATION_DOMAIN 
     description: Custom hostname for service routes.  Leave blank for default hostname

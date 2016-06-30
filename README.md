@@ -14,7 +14,7 @@ Here's how from the Open Shift [command line tool][10]:
  
  > oc env --list dc/mongodb | grep MONGO | oc env dc/candv -e -
  
- 
+
 ### Read more about OpenShift and getting started here:
 * If you are using OpenShift Online, [follow instructions here][1]
 * If you have OpenShift Enterprise, [follow instructions here][2] 
@@ -24,7 +24,11 @@ Here's how from the Open Shift [command line tool][10]:
 > You can read [about it here][3].  And [even more here][5].
 
 ### Run as an Instant App (aka templates)
-I'm also writing a template for this to be an Instant app for OpenShift (in progress).  It will contain the definitions of resources and configuration parameters that OpenShift can use to create everything you need to run.  To make things even more automated.
+There is also template for this to be an Instant app for OpenShift.  It contains the definitions of resources and configuration parameters that OpenShift can use to create everything you need to run.  To make things even more automated.  You can use this on the command line with the following commands:
+ > oc new-app -f https://raw.githubusercontent.com/dudash/candv/master/oc_templates/candv_instant_template.yaml
+ 
+ Or if you are an Open Shift administrator you can install the template for users to create with the web console.
+
 [Click here if you want to read about making your own instant apps for OpenShift][8].
 
 ## Notes on using CandV
