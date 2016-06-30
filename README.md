@@ -10,7 +10,7 @@ A simple copy and paste (ctrl+c, ctrl+v) application and database that is config
 This app is configured to be deployed and managed via OpenShift.  Which means all you'll need to do is: point Open Shift to the source code, tell it you want a mongo database, and then set any variables you want to customize for your environment.
 
 Here's how from the Open Shift [command line tool][10]:
- > oc new-app https://github.com/dudash/candv mongodb ; oc expose service candv
+ > oc new-app https://github.com/dudash/candv mongodb-ephemeral ; oc expose service candv
  
 ### Read more about OpenShift and getting started here:
 * If you are using OpenShift Online, [follow instructions here][1]
