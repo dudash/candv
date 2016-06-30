@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/dudash/candv.png?label=ready&title=Ready)](https://waffle.io/dudash/candv)
 # CandV ('kand-ve)
 ## What is this?
 A simple copy and paste (ctrl+c, ctrl+v) application and database that is configured for Red Hat's OpenShift.
