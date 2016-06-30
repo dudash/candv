@@ -1,25 +1,33 @@
 [![Stories in Ready](https://badge.waffle.io/dudash/candv.png?label=ready&title=Ready)](https://waffle.io/dudash/candv)
+
 # CandV ('kand-ve)
 ## What is this?
 A simple copy and paste (ctrl+c, ctrl+v) application and database that is configured for Red Hat's OpenShift.
 
-![Screenshot CandV](./.screens/2016-03-23_1835.png?raw=true)
+![Screenshot CandV](./.screens/2016-06-30_1911.png?raw=true)
 
 ## How can I run my own candv app?
-This app is configured to be deployed and managed via OpenShift.  Which means all you'll need to do is click a few buttons and specify some settings.
+This app is configured to be deployed and managed via OpenShift.  Which means all you'll need to do is: point Open Shift to the source code, tell it you want a mongo database, and then set any variables you want to customize for your environment.
+
+Here's how from the Open Shift [command line tool][10]:
+ > oc new-app https://github.com/dudash/candv mongodb-ephemeral ; oc expose service candv
+ 
+ > oc env --list dc/mongodb | grep MONGO | oc env dc/candv -e -
+ 
+
+### Read more about OpenShift and getting started here:
 * If you are using OpenShift Online, [follow instructions here][1]
 * If you have OpenShift Enterprise, [follow instructions here][2] 
 
 ### How is this deployment/devops magic happening?
-> The app is getting built into a docker image with a tool called Source 2 Image.
+> The app is getting built into a docker image with a tool called Source 2 Image (s2i).
 > You can read [about it here][3].  And [even more here][5].
 
-### More about the deployment settings (aka template parameters)
-The app has a been pre-configured with a template to be an Instant app for OpenShift.  It will start a database, webapp, and any other dependencies with a default configuration.  There are parameters specified in the template that let you optionally tailor some specific values for your environment:
-* DB_NAME
-* TBD
-* TBD
-* TBD
+### Run as an Instant App (aka templates)
+There is also template for this to be an Instant app for OpenShift.  It contains the definitions of resources and configuration parameters that OpenShift can use to create everything you need to run.  To make things even more automated.  You can use this on the command line with the following commands:
+ > oc new-app -f https://raw.githubusercontent.com/dudash/candv/master/oc_templates/candv_instant_template.yaml
+ 
+ Or if you are an Open Shift administrator you can install the template for users to create with the web console.
 
 [Click here if you want to read about making your own instant apps for OpenShift][8].
 
@@ -51,11 +59,12 @@ Under the terms of the [MIT][7].
 
 
 [1]: https://developers.openshift.com/en/getting-started-overview.html
-[2]: https://docs.openshift.com/enterprise/3.1/welcome/index.html
+[2]: https://docs.openshift.com/enterprise/latest/welcome/index.html
 [3]: https://docs.openshift.org/latest/using_images/s2i_images/nodejs.html
 [4]: https://github.com/dudash/candv/issues
-[5]: https://docs.openshift.com/enterprise/3.1/architecture/core_concepts/builds_and_image_streams.html
+[5]: https://docs.openshift.com/enterprise/latest/architecture/core_concepts/builds_and_image_streams.html
 [6]: https://github.com/openshift/origin/blob/master/docs/debugging-openshift.md
 [7]: https://opensource.org/licenses/MIT
-[8]: https://docs.openshift.com/enterprise/3.1/install_config/install/first_steps.html#creating-instantapp-templates
+[8]: https://docs.openshift.com/enterprise/latest/install_config/install/first_steps.html#creating-instantapp-templates
 [9]: https://github.com/OAI/OpenAPI-Specification
+[10]: https://docs.openshift.com/enterprise/latest/cli_reference/get_started_cli.html
