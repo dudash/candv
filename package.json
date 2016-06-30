@@ -34,7 +34,7 @@
     "kerberos": "^0.0.17",
     "moment": "^2.10.6",
     "mongodb": "~2.0",
-    "monk": "https://github.com/vccabral/monk.git",
+    "monk": "~1.0.1",
     "serve-favicon": "^2.3.0"
   }
 }
