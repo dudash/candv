@@ -12,6 +12,9 @@ This app is configured to be deployed and managed via OpenShift.  Which means al
 Here's how from the Open Shift [command line tool][10]:
  > oc new-app https://github.com/dudash/candv mongodb-ephemeral ; oc expose service candv
  
+ > oc env --list dc/mongodb | grep MONGO | oc env dc/candv -e -
+ 
+ 
 ### Read more about OpenShift and getting started here:
 * If you are using OpenShift Online, [follow instructions here][1]
 * If you have OpenShift Enterprise, [follow instructions here][2] 
