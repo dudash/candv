@@ -4,7 +4,7 @@
 ## What is this?
 A simple copy and paste (ctrl+c, ctrl+v) application and database that is configured for Red Hat's OpenShift.
 
-![Screenshot CandV](./.screens/2016-03-23_1835.png?raw=true)
+![Screenshot CandV](./.screens/2016-06-30_1911.png?raw=true)
 
 ## How can I run my own candv app?
 This app is configured to be deployed and managed via OpenShift.  Which means all you'll need to do is: point Open Shift to the source code, tell it you want a mongo database, and then set any variables you want to customize for your environment.
