@@ -21,5 +21,9 @@ router.get('/', function(req, res, next) {
   res.send('user specific boards are not available');
 });
 
+/* GET users listing. */
+router.get('/create', function(req, res, next) {
+  res.send('You do not have permissions to create a new user.  Sorry...');
+});
 
 module.exports = router;
