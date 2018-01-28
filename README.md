@@ -11,8 +11,11 @@ This app is configured to be deployed and managed via OpenShift.  Which means al
 
 Here's how from the Open Shift [command line tool][10]:
  > `oc new-project candvdemo`
+
  > `oc new-app https://github.com/dudash/candv`
+
  > `oc process openshift/mongodb-ephemeral`
+
  > `oc expose service candv`
  
 #### -OR- You can run this as an Instant App (aka templates)
