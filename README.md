@@ -10,13 +10,19 @@ A simple copy and paste (ctrl+c, ctrl+v) application and database that is config
 This app is configured to be deployed and managed via OpenShift.  Which means all you'll need to do is: point Open Shift to the source code, tell it you want a mongo database, and then set any variables you want to customize for your environment.
 
 Here's how from the Open Shift [command line tool][10]:
- > oc new-app https://github.com/dudash/candv mongodb-ephemeral ; oc expose service candv
+ > `oc new-project candvdemo`
+
+ > `oc new-app https://github.com/dudash/candv`
+
+ > `oc process openshift//mongodb-ephemeral | oc create -f -`
+
+ > `oc expose service candv`
  
- > oc env --list dc/mongodb | grep MONGO | oc env dc/candv -e -
- 
+ (Note that using this method you will also have to create ENV vars in the app to allow for the MongoDB connection - see the deployment config of mongodb for the variables)
+
 #### -OR- You can run this as an Instant App (aka templates)
 There is also template for this to be an Instant app for OpenShift.  It contains the definitions of resources and configuration parameters that OpenShift can use to create everything you need to run.  This makes things even more automated.  Try this by typing this into the command line (after logging into an OpenShift server):
- > oc new-app -f https://raw.githubusercontent.com/dudash/candv/master/oc_templates/candv_instant_template.yaml
+ > `oc new-app -f https://raw.githubusercontent.com/dudash/candv/master/oc_templates/candv_instant_template.yaml`
  
  Or if you are an Open Shift administrator you can install the template for users to create with the web console.
 
@@ -31,11 +37,11 @@ What is now running and being managed by OpenShift looks like the diagram below.
 
 
 ## How is this deployment/devops magic happening?
-The app is getting built into a docker image with a tool called Source 2 Image (s2i).  You can read [about S2I here][3].  And [even more here][5].
+`oc new-app` is creating a bunch of configuration metadata for the app.  Then the app is getting built into a container image with a tool called Source 2 Image (s2i).  You can read [about S2I here][3].  And [even more here][5].  The container then gets pushed to a container registry so that it's accessible to all nodes in the cluster.  And then an instance of the container is getting deployed (pulled and run) in the cluster.  Kubernetes does the orchestrating of container placement in the best fit of your cluster and then keeps watching it to keep it running.  A route configuration is allowing external traffic into the container and a service layer is acting as an internal load balancer to get traffic to the correct container.
 
 #### Read more about OpenShift and getting started here:
-* If you are using OpenShift Online, [follow instructions here][1]
-* If you have OpenShift Enterprise, [follow instructions here][2] 
+* Learning OpenShift, [try it out here][1]
+* OpenShift Container Platform, [documentation here][2] 
 
 
 ## Notes on using CandV
@@ -47,8 +53,7 @@ The REST interface and corresponding [OpenAPI spec][9] is in-progress, so the wr
 
 
 ## Common Problems and Debugging Help	
-Currently there are no common problems - if you have some please submit [issues][4].
-> Here are some tips on [debugging openshift origin][6].
+Currently there are no common problems - if you have some please submit [issues][4].  Here are some tips on [debugging openshift origin][6].
 
 
 ## Future Features + Bugs + Etc...
@@ -65,13 +70,13 @@ Please write up bugs with as much detail as possible and include:
 Under the terms of the [MIT][7].
 
 
-[1]: https://developers.openshift.com/en/getting-started-overview.html
-[2]: https://docs.openshift.com/enterprise/latest/welcome/index.html
-[3]: https://docs.openshift.org/latest/using_images/s2i_images/nodejs.html
+[1]: https://learn.openshift.com/
+[2]: https://docs.openshift.com/
+[3]: https://docs.openshift.com/container-platform/3.7/using_images/s2i_images/nodejs.html
 [4]: https://github.com/dudash/candv/issues
-[5]: https://docs.openshift.com/enterprise/latest/architecture/core_concepts/builds_and_image_streams.html
+[5]: https://docs.openshift.com/container-platform/3.7/architecture/core_concepts/builds_and_image_streams.html
 [6]: https://github.com/openshift/origin/blob/master/docs/debugging-openshift.md
 [7]: https://opensource.org/licenses/MIT
-[8]: https://docs.openshift.com/enterprise/latest/install_config/install/first_steps.html#creating-instantapp-templates
+[8]: https://docs.openshift.com/container-platform/3.7/dev_guide/templates.html#using-the-instantapp-templates
 [9]: https://github.com/OAI/OpenAPI-Specification
-[10]: https://docs.openshift.com/enterprise/latest/cli_reference/get_started_cli.html
+[10]: https://docs.openshift.com/container-platform/3.7/cli_reference/get_started_cli.html

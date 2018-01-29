@@ -10,8 +10,8 @@ Notes for developers extending or fixing bugs in this project.
 * MONGODB_USEAUTH || 'true'
 
 ## Doing Releases
-When releasing we are going to put the node_modules into the branch before tagging.  The process is simple (although I could script it later):
-In the master branch
+When releasing we are going to put the node_modules into the master branch before tagging and then remove it after.  The process is simple (maybe we could script it in the future).  In the master branch:
+0) update the version in package.json to correspond to the tag you plan to create
 1) npm shrinkwrap
 2) update .gitignore to comment out the node_modules line
 3) git commit and push
