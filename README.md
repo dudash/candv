@@ -14,10 +14,12 @@ Here's how from the Open Shift [command line tool][10]:
 
  > `oc new-app https://github.com/dudash/candv`
 
- > `oc process openshift/mongodb-ephemeral`
+ > `oc process openshift//mongodb-ephemeral | oc create -f -`
 
  > `oc expose service candv`
  
+ (Note that using this method you will also have to create ENV vars in the app to allow for the MongoDB connection - see the deployment config of mongodb for the variables)
+
 #### -OR- You can run this as an Instant App (aka templates)
 There is also template for this to be an Instant app for OpenShift.  It contains the definitions of resources and configuration parameters that OpenShift can use to create everything you need to run.  This makes things even more automated.  Try this by typing this into the command line (after logging into an OpenShift server):
  > `oc new-app -f https://raw.githubusercontent.com/dudash/candv/master/oc_templates/candv_instant_template.yaml`
