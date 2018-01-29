@@ -51,8 +51,7 @@ The REST interface and corresponding [OpenAPI spec][9] is in-progress, so the wr
 
 
 ## Common Problems and Debugging Help	
-Currently there are no common problems - if you have some please submit [issues][4].
-> Here are some tips on [debugging openshift origin][6].
+Currently there are no common problems - if you have some please submit [issues][4].  Here are some tips on [debugging openshift origin][6].
 
 
 ## Future Features + Bugs + Etc...
