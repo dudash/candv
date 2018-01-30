@@ -22,7 +22,7 @@ Here's how from the Open Shift [command line tool][10]:
 
 #### -OR- You can run this as an Instant App (aka templates)
 There is also template for this to be an Instant app for OpenShift.  It contains the definitions of resources and configuration parameters that OpenShift can use to create everything you need to run.  This makes things even more automated.  Try this by typing this into the command line (after logging into an OpenShift server):
- > `oc new-app -f https://raw.githubusercontent.com/dudash/candv/master/oc_templates/candv_instant_template.yaml`
+ > `oc new-app -f https://raw.githubusercontent.com/dudash/candv/master/oc_templates/candv-instantapp-template.json`
  
  Or if you are an Open Shift administrator you can install the template for users to create with the web console.
 
