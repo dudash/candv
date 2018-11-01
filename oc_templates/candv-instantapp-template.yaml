@@ -1,7 +1,11 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: candv-instantapp-template.json
+  name: candv-instantapp
+  openshift.io/display-name: CandV Instant App
+  openshift.io/provider-display-name: Jason Dudash
+  description: A cut and paste application demo
+  iconClass: fa-tasks
 parameters:
 - name: NAMESPACE
   displayName: Namespace
